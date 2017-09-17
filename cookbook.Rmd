@@ -1,13 +1,3 @@
----
-title: "Cookbook"
-author: "jfku"
-date: "17 sep 2017"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 ## Codebook
 #This file describes the data set tidy.txt
