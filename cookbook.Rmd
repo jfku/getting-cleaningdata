@@ -1,6 +1,6 @@
 
 ## Codebook
-#This file describes the data set tidy.txt
+# This file describes the data set tidy.txt
 
 The raw data file contained meaurement for 30 test person performing 6 different activities: 
 
