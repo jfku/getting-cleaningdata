@@ -33,12 +33,12 @@ colnames(x_test) <- features[,2]
 colnames(y_test) <- c("activity_ID")
 colnames(sub_test) <- c("subject_ID")
 
-colnames(activity_labels) <- c('activity_ID','activity_Type')
+colnames(activity_labels) <- c('activity_ID','activity_type')
 
-# 4. Merge data sets to a single data set and then join the columns together
+# 4. Merge data sets to a single data set, join activity labels to the ID and then join the columns together
 x_all <- rbind(x_train, x_test) 
 y_all <- rbind(y_train, y_test) 
-y_all <- merge(y_all, activity_labels, by=)
+y_all <- merge(y_all, activity_labels, by="activity_ID")
 sub_all <- rbind(sub_train, sub_test) 
 
 all_all <- cbind(sub_all, y_all, x_all)
@@ -47,13 +47,13 @@ all_all <- cbind(sub_all, y_all, x_all)
 cnames <- colnames(all_all)
 
 # 6. Get vector with info on which columns have activityID, subjectID, mean or std in the name
-select_vector <- grepl("activity_Type", cnames)|grepl("subject_ID", cnames)|grepl("mean", cnames)|grepl("std", cnames) 
+select_vector <- grepl("activity_type", cnames)|grepl("subject_ID", cnames)|grepl("mean\\(\\)", cnames)|grepl("std\\(\\)", cnames) 
 
 # 7. Subset all_all with the vector
 all_all_sub <- all_all[,select_vector]
 
-# 8. Find average value per activity and subject for each variable
-tidy <- aggregate(.~activity_Type+subject_ID, all_all_sub, mean)
+# 8. Find average value per activity and subject for all columns
+tidy <- aggregate(.~subject_ID+activity_type, all_all_sub, mean)
 
 # 9. Make a file out of the tidy dataset
 write.table(tidy, "tidy.txt")
